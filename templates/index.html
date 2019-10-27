@@ -31,23 +31,24 @@
             <td>
                 {{entry["pk"]}}
             </td>
-            {% if entry["fill"] < 50 %}
-            <td class="table-success">
+            
+            <td class=
+            "progress-bar text-dark 
+            {% if entry['fill'] < 50 %}
+                bg-success
+            {% endif %}
+            {% if entry['fill'] >= 50 and entry['fill'] < 75 %}
+                bg-warning
+            {% endif %}
+            {% if entry['fill'] >= 50 and entry['fill'] < 75 %}
+                bg-warning
+            {% endif %}
+            {% if entry['fill'] > 75 %}
+                bg-danger
+            {% endif %}"
+            role="progressbar" style="width: {{entry['fill']}}%">
                 {{entry["fill"]}} %
             </td>
-            {% endif %}
-
-            {% if entry["fill"] >= 50 and entry["fill"] < 75 %}
-            <td class="table-warning">
-                {{entry["fill"]}} %
-            </td>
-            {% endif %}
-
-            {% if entry["fill"] >= 75 %}
-            <td class="table-danger">
-                {{entry["fill"]}} %
-            </td>
-            {% endif %}
 
             <td>
                 {{entry["address"]}}

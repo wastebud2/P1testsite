@@ -5,5 +5,61 @@
 {% endblock head %}
 
 {% block body %}
-Se ovenstående
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">
+            ID
+        </th>
+        <th scope="col">
+            Fyldeprocent
+        </th>
+        <th scope="col">
+            Address
+        </td>
+        <th scope="col">
+            Latitude
+        </th>
+        <th scope="col">
+            Longitude
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entry in entries.find() %}
+        <tr>
+            <td>
+                {{entry["pk"]}}
+            </td>
+            {% if entry["fill"] < 50 %}
+            <td class="table-success">
+                {{entry["fill"]}} %
+            </td>
+            {% endif %}
+
+            {% if entry["fill"] >= 50 and entry["fill"] < 75 %}
+            <td class="table-warning">
+                {{entry["fill"]}} %
+            </td>
+            {% endif %}
+
+            {% if entry["fill"] >= 75 %}
+            <td class="table-danger">
+                {{entry["fill"]}} %
+            </td>
+            {% endif %}
+
+            <td>
+                {{entry["address"]}}
+            </td>
+            <td>
+                {{entry["lat"]}}
+            </td>
+            <td>
+                {{entry["lng"]}}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock body %}

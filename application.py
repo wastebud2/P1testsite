@@ -1,5 +1,8 @@
 from flask import Flask, render_template, redirect
 import pymongo
+from app.travelingSalesman import sortLocations
+import json
+import time
 
 ## Setup ##
 app = Flask(__name__)
@@ -20,7 +23,17 @@ def update(pk, fill):
     except:
         return "An error occurred"
 
-
+@app.route("/sort/<float:fill>")
+def sort(fill):
+    locs = []
+    for entry in db_entries.find():     
+        if entry["fill"] > fill:
+            new_entry = [entry["pk"], entry["lat"], entry["lng"]]
+            locs.append(new_entry)
+    bestOrder = sortLocations(locs)
+    locs = locs[::-1] # flip list order
+    locs = [locs[i] for i in bestOrder]
+    return render_template('sort.html', data=locs)
 
 if __name__ == "__main__":
     app.run(debug=True)

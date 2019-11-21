@@ -35,5 +35,5 @@ def sort(fill):
     locs = [locs[i] for i in bestOrder]
     return render_template('sort.html', data=locs)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+#if __name__ == "__main__":
+#   app.run(debug=True)

@@ -1,20 +1,26 @@
 from flask import Flask, render_template, redirect
-import pymongo
 from app.travelingSalesman import sortLocations
 import json
-import time
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+
 
 ## Setup ##
 app = Flask(__name__)
-mongoclient = pymongo.MongoClient("mongodb+srv://test:1234@test-wbvkk.azure.mongodb.net/test?retryWrites=true&w=majority") 
-db = mongoclient["testbase"]
-db_entries = db["test_col"]
+cred = credentials.Certificate("firebase_service_key.json")
+firebase = firebase_admin.initialize_app(cred)
+db = firestore.client()
+units_ref = db.collection('enheder')
+
 
 ## Routes ##
 @app.route("/")
 def index():
-    return render_template('index.html', entries=db_entries)
+    return render_template('index.html', entries=units_ref.stream())
 
+####### Do we still need this function?
+'''
 @app.route('/update/<int:pk>/<float:fill>/')
 def update(pk, fill):
     try:
@@ -22,7 +28,10 @@ def update(pk, fill):
         return "Success!"
     except:
         return "An error occurred"
+'''
 
+###### Fix sort function
+'''
 @app.route("/sort/<float:fill>")
 def sort(fill):
     locs = []
@@ -34,6 +43,7 @@ def sort(fill):
     locs = locs[::-1] # flip list order
     locs = [locs[i] for i in bestOrder]
     return render_template('sort.html', data=locs)
+'''
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -27,38 +27,38 @@
     </tr>
     </thead>
     <tbody>
-    {% for entry in entries.find() %}
+    {% for entry in entries %}
         <tr>
             <td>
-                {{entry["pk"]}}
+                {{entry.id}}
             </td>
             
             <td class=
             "progress-bar text-dark 
-            {% if entry['fill'] < 50 %}
+            {% if entry.to_dict()['fill'] < 50 %}
                 bg-success
             {% endif %}
-            {% if entry['fill'] >= 50 and entry['fill'] < 75 %}
+            {% if entry.to_dict()['fill'] >= 50 and entry.to_dict()['fill'] < 75 %}
                 bg-warning
             {% endif %}
-            {% if entry['fill'] >= 50 and entry['fill'] < 75 %}
+            {% if entry.to_dict()['fill'] >= 50 and entry.to_dict()['fill'] < 75 %}
                 bg-warning
             {% endif %}
-            {% if entry['fill'] > 75 %}
+            {% if entry.to_dict()['fill'] > 75 %}
                 bg-danger
             {% endif %}"
-            role="progressbar" style="width: {{entry['fill']}}%">
-                {{entry["fill"]}} %
+            role="progressbar" style="width: {{entry.to_dict()['fill']}}%">
+                {{entry.to_dict()['fill']}} %
             </td>
 
             <td>
-                {{entry["address"]}}
+                {{entry.to_dict()['address']}}
             </td>
             <td>
-                {{entry["lat"]}}
+                {{entry.to_dict()['lat']}}
             </td>
             <td>
-                {{entry["lng"]}}
+                {{entry.to_dict()['lng']}}
             </td>
         </tr>
     {% endfor %}

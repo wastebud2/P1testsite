@@ -2,29 +2,33 @@ from flask import Flask, render_template, redirect
 from app.travelingSalesman import sortLocations
 import json
 import firebase_admin
-from firebase_admin import credentials, db
+from firebase_admin import credentials, firestore
 
 
 
 ## Setup ##
 app = Flask(__name__)
 cred = credentials.Certificate("firebase_service_key.json")
-firebase = firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://affladsruter.firebaseio.com/'
-})
-ref = db.reference('affaldsruter')
-
+firebase = firebase_admin.initialize_app(cred)
+db = firestore.client()
+units_ref = db.collection('enheder')
 
 
 ## Routes ##
 @app.route("/")
 def index():
-    snapshot = ref.order_by_key().get().items()
-    for key, val in snapshot:
-        print("Key: {0}, value: {1}".format(key, val))
-    return 'fis og ballade'
-    #return render_template('index.html', entries=snapshot)
+    return render_template('index.html', entries=units_ref.stream())
 
+####### Do we still need this function?
+'''
+@app.route('/update/<int:pk>/<float:fill>/')
+def update(pk, fill):
+    try:
+        db_entries.update_one({'pk':pk},{ "$set": {'fill':fill}}, upsert=False)
+        return "Success!"
+    except:
+        return "An error occurred"
+'''
 
 ###### Fix sort function
 '''

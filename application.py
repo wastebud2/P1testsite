@@ -32,7 +32,7 @@ def sort(fill):
     bestOrder = sortLocations(locs)
     locs = locs[::-1] # flip list order
     locs = [locs[i] for i in bestOrder]
-    return render_template('sort.html', data=locs)
+    return json.dumps(locs)
 
 @app.route("/sort/<string:type>/<float:fill>", methods=['POST', 'GET'])
 def sort_with_type(type, fill):
@@ -45,7 +45,7 @@ def sort_with_type(type, fill):
     bestOrder = sortLocations(locs)
     locs = locs[::-1] # flip list order
     locs = [locs[i] for i in bestOrder]
-    return render_template('sort.html', data=locs)
+    return json.dumps(locs)
 
 @app.route("/sort/GUI", methods=['POST'])
 def sort_GUI():

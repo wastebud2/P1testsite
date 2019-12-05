@@ -13,6 +13,9 @@
             ID
         </th>
         <th scope="col">
+            Type
+        </th>
+        <th scope="col">
             Fyldeprocent
         </th>
         <th scope="col">
@@ -32,7 +35,9 @@
             <td>
                 {{entry.id}}
             </td>
-            
+            <td>
+                {{entry.to_dict()['type']}}
+            </td>
             <td class=
             "progress-bar text-dark 
             {% if entry.to_dict()['fill'] < 50 %}
@@ -66,14 +71,31 @@
 </table>
 </div>
 
-<div class="row">
-    <div class="col-6">
-        <form>
-            <div class="form-group">
-                <label for="formControlRange">Example Range input</label>
-                <input type="range" class="form-control-range" id="formControlRange" min="1" max="100">
-            </div>
-        </form>
-    </div>
+<div class="card" style="width: 50rem">    
+    <div class="card-header">Planlæg rute</div>
+    <form class="card-body" action="{{ url_for('sort_GUI') }}" method="post">
+        <div class="form-group">
+            <label for="fillRange">Bestem fyldningsprocent</label>
+            <div class="row">
+                <div class="col-1">0</div>
+                <div class="col-10">
+                    <input type="range" class="form-control-range" min="0" max="100" name="fillRange">
+                </div>
+                <div class="col-1">100</div>
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="typeSelect">Filter</label>
+            <select class="form-control" name="typeSelect">
+                <option value="NoFilter">Intet filter</option>
+                <option value="Rest">Restaffald</option>
+                <option value="Plast">Plast og Metal</option>
+                <option value="Pap">Pap og Papir</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Generer rute</button>
+    </form>
 </div>
+
 {% endblock body %}

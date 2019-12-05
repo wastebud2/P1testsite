@@ -34,7 +34,7 @@ def sort(fill):
     locs = [locs[i] for i in bestOrder]
     return json.dumps(locs)
 
-@app.route("/sort/<string:type>/<float:fill>", methods=['POST', 'GET'])
+@app.route("/sort/<string:type>/<float:fill>")
 def sort_with_type(type, fill):
     locs = []
     for entry in units_ref.stream():
@@ -52,26 +52,10 @@ def sort_GUI():
     if request.method == 'POST':
         type = request.form['typeSelect']
         fill = float(request.form['fillRange'])
-        locs = [] # List of locations to sort
-        for entry in units_ref.stream():
-            entry_dict = entry.to_dict()
-            # If no filter is selected ...
-            if type == 'NoFilter':
-                #... sort only by fill amount ...
-                if entry_dict['fill'] > fill:
-                    new_entry = [entry.id, entry_dict["lat"], entry_dict["lng"]]
-                    locs.append(new_entry)
-            #... else sort by fill amount only in chosen category/filter
-            else:
-                if entry_dict['type'] == type and entry_dict['fill'] > fill:
-                    new_entry = [entry.id, entry_dict["lat"], entry_dict["lng"]]
-                    locs.append(new_entry)
-        # Sort chosen locations
-        bestOrder = sortLocations(locs)
-        locs = locs[::-1] # flip list order
-        locs = [locs[i] for i in bestOrder] # Rearrange locs in the best order, found via algorithm
-        return json.dumps(locs)
-        #return render_template('sort.html', data=locs)
+        if type == 'NoFilter':
+            return sort(fill)
+        else:
+            return sort_with_type(type, fill)
 
 
 if __name__ == "__main__":

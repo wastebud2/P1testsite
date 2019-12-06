@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request
-from app.travelingSalesman import sortLocations
+from app.brute_force import sortLocations
 import json
 import firebase_admin
 from firebase_admin import credentials, firestore

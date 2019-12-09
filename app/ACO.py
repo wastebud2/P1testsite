@@ -5,9 +5,8 @@ import random
 import sys
 
 #Get a list of locations from csv file:
-locations_list = open(r'C:\Users\Agge\Desktop\P1\Routing\ACO\locations.csv', 'r')
+locations_list = open(r'C:\Users\aggen\Desktop\AAU\P1\routing\ACO\locations.csv', 'r')
 locations = [[int(j) for j in i] for i in csv.reader(locations_list,delimiter=',')]
-index,x,y = 0,1,2
 
 """LIST OF ACTIONS IN ALGORITHEM:"""
 #Randomly place ants at the locations.
@@ -19,38 +18,42 @@ index,x,y = 0,1,2
 
 #Evaporate pheromone. (peromone(xy) = (1-p)*peromone(xy))
 
-"""SETUP/INITIALIZATION:"""
-# intialization part
-runs = 10
-iterations = 100
-n_ants = 10
-n_citys = len(locations)
 
-# Values controlling the algorithem
-m = n_ants
-n = n_citys
-e = 0.2        #evaporation rate
-alpha = 1       #pheromone factor
-beta = 2.5        #visibility factor
-
-#Function for calculating the accumulative som for a list:
-def accumu(lis):
+def accumu(lis): #Function for calculating the accumulative som for a list:
     total = 0
     for k in lis:
         total += k
         yield total
-#Example:
-#In : list(accumu([4,6,12]))
-#Out: [4, 10, 22]
-
-lowest_cost = 0
-
 
 """ALGORITHEM"""
-def ACO(locations):
+def sort_ACO(locs):
+    """PREPARE LIST"""
+    for a,loc in enumerate(locs):
+        loc.insert(0,a)
+
+    """SETUP/INITIALIZATION:"""
+    # intialization part
+    runs = 10
+    iterations = 100
+    n_ants = 10
+    n_citys = len(locations)
+
+    # Values controlling the algorithem
+    m = n_ants
+    n = n_citys
+    e = 0.2        #evaporation rate
+    alpha = 1       #pheromone factor
+    beta = 2.5        #visibility factor
+
+    x,y = 2,3 #position of x and y coordinates in location sublists
+    lowest_cost = 0
+    shortest_route_global = []
+    
+    sorted_route = []   #What the function will return
+
     for k in range(runs):
         #calculating a distance matix for all possible routs:
-        dist_matrix = [[math.sqrt(math.pow(k[x] - h[x],2) + math.pow(k[y] - h[y],2)) for h in locations] for k in locations]
+        dist_matrix = [[math.sqrt(math.pow(k[x] - h[x],2) + math.pow(k[y] - h[y],2)) for h in locs] for k in locs]
 
         #creating the visibility of the next city visibility(i,j)=1/d(i,j)
         visibility = [[1/h if h != 0 else h for h in k] for k in dist_matrix]
@@ -127,7 +130,14 @@ def ACO(locations):
         if route_costs[0] < lowest_cost or lowest_cost == 0:
             lowest_cost = route_costs[0]
             shortest_route_global = shortest_route
-    return
+    
+    for num in shortest_route_global:     #Sorting the original list for shortest route
+        for loc in locs:
+            if len(loc) == 4 and num == loc[0]:
+                sorted_route.append(loc)
+                sorted_route.append(sorted_route[0])
+                loc.pop(0)
+    
+    return  sorted_route, lowest_cost
 
-print(lowest_cost)
-print(shortest_route_global)
+print(sort_ACO(locations))

@@ -5,8 +5,8 @@ import random
 import sys
 
 #Get a list of locations from csv file:
-locations_list = open(r'C:\Users\aggen\Desktop\AAU\P1\routing\ACO\locations.csv', 'r')
-locations = [[int(j) for j in i] for i in csv.reader(locations_list,delimiter=',')]
+#locations_list = open(r'C:\Users\aggen\Desktop\AAU\P1\routing\ACO\locations.csv', 'r')
+#locations = [[int(j) for j in i] for i in csv.reader(locations_list,delimiter=',')]
 
 """LIST OF ACTIONS IN ALGORITHEM:"""
 #Randomly place ants at the locations.

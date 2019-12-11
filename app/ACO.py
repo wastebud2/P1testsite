@@ -29,7 +29,9 @@ def accumu(lis): #Function for calculating the accumulative som for a list:
 def sort_ACO(locs):
     """PREPARE LIST"""
     for a,loc in enumerate(locs):
-        loc.insert(0,a)
+        loc.insert(0,a+1)
+
+    print(locs)
 
     """SETUP/INITIALIZATION:"""
     # intialization part
@@ -130,12 +132,15 @@ def sort_ACO(locs):
         if route_costs[0] < lowest_cost or lowest_cost == 0:
             lowest_cost = route_costs[0]
             shortest_route_global = shortest_route
-    
+            
+    print("Best route: {0}".format(shortest_route_global))
+    print("Cost: {0}".format(lowest_cost))
+
     for num in shortest_route_global:     #Sorting the original list for shortest route
         for loc in locs:
             if len(loc) == 4 and num == loc[0]:
                 sorted_route.append(loc)
-                sorted_route.append(sorted_route[0])
                 loc.pop(0)
-    
-    return  sorted_route, lowest_cost
+    sorted_route.append(sorted_route[0])
+    print(sorted_route)
+    return  sorted_route

@@ -30,9 +30,9 @@ def sort(fill):
         if entry_dict['fill'] > fill:
             new_entry = [entry.id, entry_dict["lat"], entry_dict["lng"]]
             locs.append(new_entry)
-    bestOrder = sortLocations(locs)
-    locs = locs[::-1] # flip list order
-    locs = [locs[i] for i in bestOrder]
+    locs =   sort_ACO(locs)
+    #locs = locs[::-1] # flip list order
+    #locs = [locs[i] for i in bestOrder]
     return json.dumps(locs)
 
 @app.route("/sort/<string:type>/<float:fill>")

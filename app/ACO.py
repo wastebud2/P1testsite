@@ -2,12 +2,6 @@ import csv
 import math
 import random
 
-import sys
-
-#Get a list of locations from csv file:
-#locations_list = open(r'C:\Users\aggen\Desktop\AAU\P1\routing\ACO\locations.csv', 'r')
-#locations = [[int(j) for j in i] for i in csv.reader(locations_list,delimiter=',')]
-
 """LIST OF ACTIONS IN ALGORITHEM:"""
 #Randomly place ants at the locations.
 
@@ -17,7 +11,6 @@ import sys
     #3. Update pheromone (pheromon on path xy += 1/lenght(tour))
 
 #Evaporate pheromone. (peromone(xy) = (1-p)*peromone(xy))
-
 
 def accumu(lis): #Function for calculating the accumulative som for a list:
     total = 0
@@ -142,5 +135,6 @@ def sort_ACO(locs):
                 sorted_route.append(loc)
                 loc.pop(0)
     sorted_route.append(sorted_route[0])
+    
     print(sorted_route)
     return  sorted_route

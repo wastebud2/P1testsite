@@ -36,7 +36,7 @@ def sort_ACO(locs):
     runs = 10
     iterations = 100
     n_ants = 10
-    n_citys = len(locations)
+    n_citys = len(locs)
 
     # Values controlling the algorithem
     m = n_ants
@@ -139,5 +139,3 @@ def sort_ACO(locs):
                 loc.pop(0)
     
     return  sorted_route, lowest_cost
-
-print(sort_ACO(locations))

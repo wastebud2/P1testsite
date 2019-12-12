@@ -120,14 +120,12 @@ def sort_ACO(locs):
                 for h in range(n-1):
                     pheromone[route[k][h]-1][route[k][h+1]-1] = pheromone[route[k][h]-1][route[k][h+1]-1] + dt
             
-        print(shortest_route)
+        #print(shortest_route)
 
         if route_costs[0] < lowest_cost or lowest_cost == 0:
             lowest_cost = route_costs[0]
             shortest_route_global = shortest_route
-            
-    print("Best route: {0}".format(shortest_route_global))
-    print("Cost: {0}".format(lowest_cost))
+        
 
     for num in shortest_route_global:     #Sorting the original list for shortest route
         for loc in locs:
@@ -136,5 +134,6 @@ def sort_ACO(locs):
                 loc.pop(0)
     sorted_route.append(sorted_route[0])
     
-    print(sorted_route)
+    print("Best route: {0}".format(shortest_route_global))
+    print("Cost: {0}".format(lowest_cost))
     return  sorted_route

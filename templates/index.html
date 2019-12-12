@@ -19,6 +19,9 @@
             Fyldeprocent
         </th>
         <th scope="col">
+            Address
+        </th>
+        <th scope="col">
             Latitude
         </th>
         <th scope="col">
@@ -54,14 +57,14 @@
             {% if entry.to_dict()['fill'] >= 50 and entry.to_dict()['fill'] < 75 %}
                 bg-warning
             {% endif %}
-            {% if entry.to_dict()['fill'] >= 50 and entry.to_dict()['fill'] < 75 %}
-                bg-warning
-            {% endif %}
-            {% if entry.to_dict()['fill'] > 75 %}
+            {% if entry.to_dict()['fill'] >= 75 %}
                 bg-danger
             {% endif %}"
             role="progressbar" style="width: {{entry.to_dict()['fill']}}%">
                 {{entry.to_dict()['fill']}} %
+            </td>
+            <td>
+                {{entry.to_dict()['address']}}
             </td>
             <td>
                 {{entry.to_dict()['lat']}}
@@ -94,6 +97,7 @@
             <select class="form-control" name="typeSelect">
                 <option value="NoFilter">Intet filter</option>
                 <option value="Rest">Restaffald</option>
+                <option value="Mad">Madaffald</option>
                 <option value="Plast">Plast og Metal</option>
                 <option value="Pap">Pap og Papir</option>
             </select>

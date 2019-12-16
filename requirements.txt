@@ -6,3 +6,4 @@ MarkupSafe==1.0
 Werkzeug==0.14.1
 dnspython==1.16.0
 firebase_admin==3.2.0
+json==2.0.9
